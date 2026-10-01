@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Travel guide to all 41 districts of Rajasthan: places, food, dress, traditions, history and transport.">
+<title>Rajasthan Yatra</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Yatra+One&family=Mukta:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header class="bar">
+  <div class="wrap">
+    <button class="brand" id="home-btn" type="button"><i></i>Rajasthan Yatra</button>
+    <nav class="nav" aria-label="Sections">
+      <a href="#districts" data-go="districts">Districts</a>
+      <a href="#distance" data-go="distance">Distances</a>
+      <a href="#trips" data-go="trips">Itineraries</a>
+      <a href="#tips" data-go="tips">Travel tips</a>
+      <a href="#manage" data-go="manage">My edits</a>
+    </nav>
+  </div>
+</header>
+
+<main id="home">
+  <section class="hero">
+    <div class="wrap">
+      <div>
+        <div class="eyebrow" style="color:#FFD27A">A traveller's guide to the Land of Kings</div>
+        <h1>Padharo Mhare Des</h1>
+        <p class="lede">Every district of Rajasthan in one place: the forts and lakes worth the trip, what to eat, what people wear, the fairs and festivals, the history behind it all, and how to get there by train, bus or road.</p>
+        <div class="stats" id="stats"></div>
+      </div>
+      <div class="mapbox">
+        <svg id="map" viewBox="0 0 340 300" role="img" aria-label="Map of Rajasthan district headquarters, plotted to scale by latitude and longitude"></svg>
+        <div class="legend" id="legend"></div>
+        <div class="cap"><span>District headquarters plotted to scale. Tap a dot to open.</span><span id="maphover"></span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="districts">
+    <div class="wrap">
+      <div class="head">
+        <div><div class="eyebrow">41 districts · 7 divisions</div><h2>Choose a district</h2></div>
+      </div>
+      <div class="tools">
+        <input class="search" id="q" type="search" placeholder="Search a district, fort, dish or festival (try 'ghevar' or 'stepwell')" aria-label="Search districts">
+      </div>
+      <div class="chips" id="divchips" style="margin-bottom:18px"></div>
+      <div class="grid" id="grid"></div>
+    </div>
+  </section>
+
+  <section class="block" id="distance" style="background:var(--sunk)">
+    <div class="wrap">
+      <div class="head"><div><div class="eyebrow">Plan your route</div><h2>How far is it?</h2></div></div>
+      <div class="dist">
+        <div>
+          <div class="form">
+            <label for="from">From<select id="from"></select></label>
+            <button class="swap" id="swap" type="button" aria-label="Swap from and to">⇄</button>
+            <label for="to">To<select id="to"></select></label>
+          </div>
+          <div class="result" id="dres"></div>
+          <p class="note">Road distance is estimated from the straight-line distance between district headquarters (×1.22, typical for Rajasthan's highways). Drive time assumes about 50 km/h including stops. Check a live map before you set out.</p>
+        </div>
+        <div>
+          <h3 style="font-size:1.25rem;margin-bottom:8px">Nearest districts from <span id="nearname"></span></h3>
+          <div class="tablewrap"><table id="neartable"></table></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="trips">
+    <div class="wrap">
+      <div class="head"><div><div class="eyebrow">Ready-made routes</div><h2>Itineraries by days</h2></div></div>
+      <div class="trips" id="tripgrid"></div>
+    </div>
+  </section>
+
+  <section class="block" id="tips" style="background:var(--sunk)">
+    <div class="wrap">
+      <div class="head"><div><div class="eyebrow">Before you go</div><h2>Travel tips from the road</h2></div></div>
+      <div class="tips" id="tipgrid"></div>
+    </div>
+  </section>
+<section class="block" id="manage">
+    <div class="wrap">
+      <div class="head"><div><div class="eyebrow">Make it yours</div><h2>Add places & manage your edits</h2></div><span class="muted num" id="mcount"></span></div>
+      <div class="two">
+        <div class="panel">
+          <h3>Add something new</h3>
+          <p class="muted">Add a place or dish to any district, or open a district and use “+ Add a place”. Every built-in place also has “Change photo”. Edits are saved in this browser.</p>
+          <div class="btnrow"><button type="button" class="primary" id="m-add">+ Add a place</button><button type="button" class="ghost" id="m-adddish">+ Add a dish</button></div>
+          <div class="tablewrap" id="mtable" style="margin-top:14px"></div>
+        </div>
+        <div class="panel">
+          <h3>Keep your edits permanently</h3>
+          <ol class="steps">
+            <li><b>Download data.js</b>: the full guide with your places built in.</li>
+            <li>In VS Code, replace <code>js/data.js</code> with it and redeploy. Everyone now sees your places.</li>
+            <li>Then press <b>Clear all edits</b> here so nothing shows twice.</li>
+          </ol>
+          <div class="btnrow"><button type="button" class="primary" id="m-datajs">Download data.js</button><button type="button" class="ghost" id="m-json">Download edits (.json)</button><button type="button" class="ghost" id="m-copy">Copy edits</button></div>
+          <details style="margin-top:12px"><summary>Import edits from another browser</summary>
+            <div style="display:grid;gap:8px;margin-top:8px">
+              <label class="fld" for="m-importfile"><span>Edits file (.json)</span><input type="file" id="m-importfile" accept="application/json,.json"></label>
+              <label class="fld" for="m-paste"><span>Or paste the JSON</span><textarea id="m-paste" rows="3"></textarea></label>
+              <div class="btnrow"><button type="button" class="ghost" id="m-importbtn">Import pasted JSON</button></div>
+            </div>
+          </details>
+          <div class="btnrow" style="margin-top:12px"><button type="button" class="ghost danger" id="m-clear">Clear all edits</button></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<main id="detail" hidden></main>
+
+<div class="modal" id="modal" hidden><div class="sheet" role="dialog" aria-modal="true" aria-labelledby="m-title"><form id="mform" novalidate></form></div></div>
+<div class="toast" id="toast" role="status" hidden></div>
+
+<footer>
+  <div class="wrap">
+    <p>Covers Rajasthan's 41 districts as reorganised in December 2024. Road distances are estimates from district headquarters. Photos are the lead images of each place's Wikipedia article (shared under Creative Commons; tap the credit to see the source and licence). Where no photo loads, a drawn illustration is shown. Use “Change photo” or “+ Add a place” to put in your own.</p>
+  </div>
+</footer>
+
+<script src="js/data.js"></script>
+<script src="js/photos.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
